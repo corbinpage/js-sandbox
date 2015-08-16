@@ -10,13 +10,17 @@ feedModule.config(['$routeProvider', function($routeProvider) {
 }])
 
 feedModule.controller('FeedCtrl', ['$scope', function($scope) {
-
-    var feed = new Instafeed({
-        get: 'tagged',
-        tagName: 'awesome',
-        clientId: 'xxx'
-    });
-    feed.run();
+  var feed = new Instafeed({
+    get: 'tagged',
+    tagName: 'awesome',
+    clientId: 'xxx',
+    mock: true,
+    success: function(data) {
+      $scope.$apply(function () {
+        $scope.feed = data.data;
+      });
+    }
+  });
+  feed.run();
 
   $scope.greeting = 'Hola!';
-}]);
